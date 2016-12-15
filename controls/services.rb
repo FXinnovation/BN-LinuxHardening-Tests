@@ -18,3 +18,13 @@ control 'service-02' do
     it { should_not be_running }
   end
 end
+
+control 'service-03' do
+  impact 1.0
+  title 'daytime STREAM protocol service'
+  describe systemd_service('daytime-stream') do
+    it { should_not be_enabled }
+    it { should_not be_running }
+  end
+end
+
