@@ -54,3 +54,12 @@ control 'service-06' do
     it { should_not be_running }
   end
 end
+
+control 'service-07' do
+  impact 1.0
+  title 'tcp port service multiplexer'
+  describe systemd_service('tcpmux-server') do
+    it { should_not be_enabled }
+    it { should_not be_running }
+  end
+end
