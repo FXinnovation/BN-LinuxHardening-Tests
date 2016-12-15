@@ -56,3 +56,11 @@ control 'package-07' do
     it { should_not be_installed }
   end
 end
+
+control 'package-08' do
+  impact 1.0
+  title 'Do not install tftp'
+  describe package('tftp') do
+    it { should_not be_installed }
+  end
+end
