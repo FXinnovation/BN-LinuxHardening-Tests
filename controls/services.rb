@@ -28,3 +28,11 @@ control 'service-03' do
   end
 end
 
+control 'service-04' do
+  impact 1.0
+  title 'daytime DGRAM protocol service'
+  describe systemd_service('daytime-dgram') do
+    it { should_not be_enabled }
+    it { should_not be_running }
+  end
+end
