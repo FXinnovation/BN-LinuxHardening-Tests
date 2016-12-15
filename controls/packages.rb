@@ -104,3 +104,15 @@ control 'package-13' do
     it { should_not be_installed }
   end
 end
+
+control 'package-13' do
+  impact 1.0
+  title 'Do not install X window Manager'
+  describe package('xorg-x11-server-common') do
+    it { should_not be_installed }
+  end
+  describe file('/etc/systemd/system/default.target') do
+    it { should be_linked_to '/usr/lib/systemd/system/multi-user.target' }
+  end
+end
+
