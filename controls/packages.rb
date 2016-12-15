@@ -16,4 +16,3 @@ control 'package-02' do
     it { should_not be_installed }
   end
 end
-
