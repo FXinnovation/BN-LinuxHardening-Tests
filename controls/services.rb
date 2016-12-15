@@ -66,8 +66,17 @@ end
 
 control 'service-08' do
   impact 1.0
-  title 'vsftpd'
+  title 'Very Secure FTP daemon'
   describe systemd_service('vsftpd') do
+    it { should_not be_enabled }
+    it { should_not be_running }
+  end
+end
+
+control 'service-09' do
+  impact 1.0
+  title 'Apache httpd service'
+  describe systemd_service('httpd') do
     it { should_not be_enabled }
     it { should_not be_running }
   end
