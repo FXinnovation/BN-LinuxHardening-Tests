@@ -36,3 +36,12 @@ control 'service-04' do
     it { should_not be_running }
   end
 end
+
+control 'service-05' do
+  impact 1.0
+  title 'echo DGRAM protocol service'
+  describe systemd_service('echo-dgram') do
+    it { should_not be_enabled }
+    it { should_not be_running }
+  end
+end
