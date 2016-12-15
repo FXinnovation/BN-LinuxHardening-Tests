@@ -45,3 +45,12 @@ control 'service-05' do
     it { should_not be_running }
   end
 end
+
+control 'service-06' do
+  impact 1.0
+  title 'echo STREAM protocol service'
+  describe systemd_service('echo-stream') do
+    it { should_not be_enabled }
+    it { should_not be_running }
+  end
+end
