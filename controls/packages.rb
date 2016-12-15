@@ -25,10 +25,18 @@ control 'package-03' do
   end
 end
 
-control 'package-03' do
+control 'package-04' do
   impact 1.0
   title 'Do not install rsh'
   describe package('rsh') do
+    it { should_not be_installed }
+  end
+end
+
+control 'package-05' do
+  impact 1.0
+  title 'Do not install rlogin'
+  describe package('rlogin') do
     it { should_not be_installed }
   end
 end
