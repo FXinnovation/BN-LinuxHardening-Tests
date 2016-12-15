@@ -103,3 +103,24 @@ control 'service-11' do
     it { should_not be_running }
   end
 end
+
+control 'service-12' do
+  impact 1.0
+  title 'NFS and RPC services'
+  describe systemd_service('nfslock') do
+    it { should_not be_running }
+  end
+  describe systemd_service('rpcgssd') do
+    it { should_not be_running }
+  end
+  describe systemd_service('rpcbind') do
+    it { should_not be_running }
+  end
+  describe systemd_service('rpcidmapd') do
+    it { should_not be_running }
+  end
+  describe systemd_service('rpcsvcgssd') do
+    it { should_not be_running }
+  end
+end
+
