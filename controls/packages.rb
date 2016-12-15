@@ -16,3 +16,12 @@ control 'package-02' do
     it { should_not be_installed }
   end
 end
+
+control 'package-03' do
+  impact 1.0
+  title 'Do not install rsh-server'
+  describe package('rsh-server') do
+    it { should_not be_installed }
+  end
+end
+
