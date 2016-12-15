@@ -3,8 +3,17 @@
 
 control 'package-01' do
   impact 1.0
-  title 'Do not install telnet'
+  title 'Do not install telnet-server'
   describe package('telnet-server') do
     it { should_not be_installed }
   end
 end
+
+control 'package-02' do
+  impact 1.0
+  title 'Do not install telnet'
+  describe package('telnet') do
+    it { should_not be_installed }
+  end
+end
+
