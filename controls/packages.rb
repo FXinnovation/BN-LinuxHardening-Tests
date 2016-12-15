@@ -64,3 +64,11 @@ control 'package-08' do
     it { should_not be_installed }
   end
 end
+
+control 'package-09' do
+  impact 1.0
+  title 'Do not install talk'
+  describe package('talk') do
+    it { should_not be_installed }
+  end
+end
