@@ -63,3 +63,12 @@ control 'service-07' do
     it { should_not be_running }
   end
 end
+
+control 'service-08' do
+  impact 1.0
+  title 'vsftpd'
+  describe systemd_service('vsftpd') do
+    it { should_not be_enabled }
+    it { should_not be_running }
+  end
+end
