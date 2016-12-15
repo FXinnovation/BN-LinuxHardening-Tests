@@ -81,3 +81,12 @@ control 'service-09' do
     it { should_not be_running }
   end
 end
+
+control 'service-10' do
+  impact 1.0
+  title 'The Avahi mDNS/DNS-SD daemon'
+  describe systemd_service('avahi-daemon') do
+    it { should_not be_enabled }
+    it { should_not be_running }
+  end
+end
