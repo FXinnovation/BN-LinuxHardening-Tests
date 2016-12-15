@@ -116,3 +116,10 @@ control 'package-13' do
   end
 end
 
+control 'package-14' do
+  impact 1.0
+  title 'Do not install openldap server'
+  describe package('openldap-servers') do
+    it { should_not be_installed }
+  end
+end
