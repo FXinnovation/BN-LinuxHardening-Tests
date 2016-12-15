@@ -91,7 +91,7 @@ end
 
 control 'package-12' do
   impact 1.0
-  title 'Do not install xinetd"
+  title 'Do not install xinetd'
   describe package('xinetd') do
     it { should_not be_installed }
   end
@@ -99,7 +99,7 @@ end
 
 control 'package-13' do
   impact 1.0
-  title 'Do not install dhcp server"
+  title 'Do not install dhcp server'
   describe package('dhcp') do
     it { should_not be_installed }
   end
