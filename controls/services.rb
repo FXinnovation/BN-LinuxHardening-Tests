@@ -90,3 +90,16 @@ control 'service-10' do
     it { should_not be_running }
   end
 end
+
+control 'service-11' do
+  impact 1.0
+  title 'Common Unix Printing System services'
+  describe systemd_service('cups') do
+    it { should_not be_enabled }
+    it { should_not be_running }
+  end
+  describe systemd_service('cups-lpd') do
+    it { should_not be_enabled }
+    it { should_not be_running }
+  end
+end
