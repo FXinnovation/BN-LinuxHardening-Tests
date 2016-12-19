@@ -76,3 +76,21 @@ control 'sysctl-05' do
     its('content') { should match(%r{net.ipv4.conf.default.accept_redirects.*0})  }
   end
 end
+
+control 'sysctl-06' do
+  impact 1.0
+  title 'Secure ICMP Redirect'
+  desc "Disable Secure ICMP Redirect Acceptance."
+  describe kernel_parameter('net.ipv4.conf.all.secure_redirects') do
+    its(:value) { should eq 0 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{net.ipv4.conf.all.secure_redirects.*0})  }
+  end
+  describe kernel_parameter('net.ipv4.conf.default.secure_redirects') do
+    its(:value) { should eq 0 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{net.ipv4.conf.default.secure_redirects.*0})  }
+  end
+end
