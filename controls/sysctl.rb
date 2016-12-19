@@ -94,3 +94,15 @@ control 'sysctl-06' do
     its('content') { should match(%r{net.ipv4.conf.default.secure_redirects.*0})  }
   end
 end
+
+control 'sysctl-07' do
+  impact 1.0
+  title 'Bad Error Message Protection'
+  desc "Enable Bad Error Message Protection"
+  describe kernel_parameter('net.ipv4.icmp_ignore_bogus_error_responses') do
+    its(:value) { should eq 1 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{net.ipv4.icmp_ignore_bogus_error_responses.*1})  }
+  end
+end
