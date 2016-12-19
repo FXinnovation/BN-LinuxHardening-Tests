@@ -18,13 +18,7 @@ control 'sysctl-02' do
   describe kernel_parameter('net.ipv4.ip_forward') do
     its(:value) { should eq 0 }
   end
-  describe kernel_parameter('net.ipv4.conf.all.forwarding') do
-    its(:value) { should eq 0 }
-  end
   describe file('/etc/sysctl.conf') do
     its('content') { should match(%r{net.ipv4.ip_forward.*0})  }
-  end
-  describe file('/etc/sysctl.conf') do
-    its('content') { should match(%r{net.ipv4.conf.all.forwarding.*0})  }
   end
 end
