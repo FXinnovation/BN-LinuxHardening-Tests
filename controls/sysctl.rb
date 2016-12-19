@@ -58,3 +58,21 @@ control 'sysctl-04' do
     its('content') { should match(%r{net.ipv4.conf.default.accept_source_route.*0})  }
   end
 end
+
+control 'sysctl-05' do
+  impact 1.0
+  title 'ICMP Redirect'
+  desc "Disable ICMP Redirect Acceptance."
+  describe kernel_parameter('net.ipv4.conf.all.accept_redirects') do
+    its(:value) { should eq 0 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{net.ipv4.conf.all.accept_redirects.*0})  }
+  end
+  describe kernel_parameter('net.ipv4.conf.default.accept_redirects') do
+    its(:value) { should eq 0 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{net.ipv4.conf.default.accept_redirects .*0})  }
+  end
+end
