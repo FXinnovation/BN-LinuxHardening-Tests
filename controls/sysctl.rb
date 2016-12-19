@@ -4,6 +4,14 @@
 
 control 'sysctl-01' do
   impact 1.0
+  title 'Protected sysctl' do
+  describe file('/etc/sysctl.conf') do
+    its('mode') { should cmp '0444' }
+  end
+end
+
+control 'sysctl-02' do
+  impact 1.0
   title 'IPv4 Forwarding'
   desc "If you're not intending for your system to forward traffic between interfaces, or if you only have a single interface, the forwarding function must be disable."
   describe kernel_parameter('net.ipv4.ip_forward') do
