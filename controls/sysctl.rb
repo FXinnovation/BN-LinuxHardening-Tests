@@ -118,3 +118,21 @@ control 'sysctl-08' do
     its('content') { should match(%r{net.ipv4.tcp_syncookies.*1})  }
   end
 end
+
+control 'sysctl-09' do
+  impact 1.0
+  title 'Source Route Validation'
+  desc "Enable RFC-recommended Source Route Validation."
+  describe kernel_parameter('net.ipv4.conf.all.rp_filter') do
+    its(:value) { should eq 1 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{net.ipv4.conf.all.rp_filter.*1})  }
+  end
+  describe kernel_parameter('net.ipv4.conf.default.rp_filter') do
+    its(:value) { should eq 1 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{net.ipv4.conf.default.rp_filter.*1})  }
+  end
+end
