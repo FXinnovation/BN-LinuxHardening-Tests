@@ -73,6 +73,6 @@ control 'sysctl-05' do
     its(:value) { should eq 0 }
   end
   describe file('/etc/sysctl.conf') do
-    its('content') { should match(%r{net.ipv4.conf.default.accept_redirects .*0})  }
+    its('content') { should match(%r{net.ipv4.conf.default.accept_redirects.*0})  }
   end
 end
