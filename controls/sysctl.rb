@@ -4,7 +4,7 @@
 
 control 'sysctl-01' do
   impact 1.0
-  title 'Protected sysctl' do
+  title 'Protected sysctl'
   describe file('/etc/sysctl.conf') do
     its('mode') { should cmp '0444' }
   end
