@@ -110,7 +110,7 @@ end
 control 'sysctl-08' do
   impact 1.0
   title 'TCP SYN cookies'
-  desc "Enable TCP SYN cookies'
+  desc "Enable TCP SYN cookies"
   describe kernel_parameter('net.ipv4.tcp_syncookies') do
     its(:value) { should eq 1 }
   end
