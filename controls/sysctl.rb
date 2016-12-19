@@ -22,3 +22,15 @@ control 'sysctl-02' do
     its('content') { should match(%r{net.ipv4.ip_forward.*0})  }
   end
 end
+
+control 'sysctl-03' do
+  impact 1.0
+  title 'Packet Redirects'
+  desc "If you're not intending for your system to redirecting packets, the redirect function must be disable." 
+  describe kernel_parameter('net.ipv4.conf.all.send_redirects') do
+    its(:value) { should eq 0 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{net.ipv4.conf.all.send_redirects.*0})  }
+  end
+end
