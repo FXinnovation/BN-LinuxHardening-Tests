@@ -106,3 +106,15 @@ control 'sysctl-07' do
     its('content') { should match(%r{net.ipv4.icmp_ignore_bogus_error_responses.*1})  }
   end
 end
+
+control 'sysctl-08' do
+  impact 1.0
+  title 'TCP SYN cookies'
+  desc "Enable TCP SYN cookies'
+  describe kernel_parameter('net.ipv4.tcp_syncookies') do
+    its(:value) { should eq 1 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{net.ipv4.tcp_syncookies.*1})  }
+  end
+end
