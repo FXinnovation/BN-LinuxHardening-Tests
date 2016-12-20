@@ -166,3 +166,15 @@ control 'sysctl-11' do
     its('content') { should match(%r{net.ipv4.conf.default.log_martians.*1})  }
   end
 end
+
+control 'sysctl-12' do
+  impact 1.0
+  title 'Core Dumps'
+  desc "Restrict Core Dumps"
+  describe kernel_parameter('fs.suid_dumpable') do
+    its(:value) { should eq 0 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{fs.suid_dumpable.*0})  }
+  end
+end
