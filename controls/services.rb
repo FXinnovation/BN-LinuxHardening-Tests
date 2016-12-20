@@ -124,3 +124,11 @@ control 'service-12' do
   end
 end
 
+control 'service-13' do
+  impact 1.0
+  title 'Audit daemon services'
+  describe systemd_service('auditd') do
+    it { should be_enabled }
+    it { should be_running }
+  end
+end

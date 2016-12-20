@@ -123,3 +123,11 @@ control 'package-14' do
     it { should_not be_installed }
   end
 end
+
+control 'package-15' do
+  impact 1.0
+  title 'audit daemon should be installed'
+  describe package('audit') do
+    it { should be_installed }
+  end
+end
