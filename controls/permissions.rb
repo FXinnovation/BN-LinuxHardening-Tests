@@ -148,3 +148,10 @@ control 'permissions-05' do
   end
 end
 
+control 'permissions-06' do
+  title 'World writeable files'
+  desc "world writeable files should not exist on the system"
+  describe command('df --local -P | awk {\'if (NR!=1) print $6\'} | xargs -I \'{}\' find \'{}\' -xdev -type f -perm -0002') do
+    its('stdout') { should eq '' }
+  end
+end
