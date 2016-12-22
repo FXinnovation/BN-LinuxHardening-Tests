@@ -149,6 +149,24 @@ control 'permissions-05' do
 end
 
 control 'permissions-06' do
+  title 'gshadow file'
+  desc "shadow file should be owned by root and only be accessible to the owner"
+  describe file('/etc/gshadow') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    its('group') { should eq 'root' }
+    it { should_not be_executable }
+    it { should be_writable.by('owner') }
+    it { should be_readable.by('owner') }
+    it { should_not be_writable.by('group') }
+    it { should_not be_readable.by('group') }
+    it { should_not be_writable.by('other') }
+    it { should_not be_readable.by('other') }
+  end
+end
+
+control 'permissions-07' do
   title 'World writeable files'
   desc "world writeable files should not exist on the system"
   describe command('df --local -P | awk {\'if (NR!=1) print $6\'} | xargs -I \'{}\' find \'{}\' -xdev -type f -perm -0002') do
