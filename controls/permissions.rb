@@ -112,3 +112,21 @@ control 'permissions-03' do
   end
 end
 
+control 'permissions-04' do
+  title 'group file'
+  desc "group file should be owned by root and only be readable to others."
+  describe file('/etc/group') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    its('group') { should eq 'root' }
+    it { should_not be_executable }
+    it { should be_writable.by('owner') }
+    it { should be_readable.by('owner') }
+    it { should_not be_writable.by('group') }
+    it { should be_readable.by('group') }
+    it { should_not be_writable.by('other') }
+    it { should be_readable.by('other') }
+  end
+end
+
