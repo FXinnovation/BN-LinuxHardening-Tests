@@ -173,3 +173,11 @@ control 'permissions-07' do
     its('stdout') { should eq '' }
   end
 end
+
+control 'permissions-08' do
+  title 'Legacy users'
+  desc 'No Legacy "+" Entries Exist in /etc/passwd File'
+  describe passwd do
+    its('users') { should_not include /\+/ }
+  end
+end
