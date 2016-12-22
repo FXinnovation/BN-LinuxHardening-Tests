@@ -178,3 +178,15 @@ control 'sysctl-12' do
     its('content') { should match(%r{fs.suid_dumpable.*0})  }
   end
 end
+
+control 'sysctl-13' do
+  impact 1.0
+  title 'Virtual Memory Placement'
+  desc "Enable Randomized Virtual Memory Region Placement."
+  describe kernel_parameter('kernel.randomize_va_space') do
+    its(:value) { should eq 2 }
+  end
+  describe file('/etc/sysctl.conf') do
+    its('content') { should match(%r{kernel.randomize_va_space.*2})  }
+  end
+end
