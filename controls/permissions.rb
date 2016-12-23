@@ -175,9 +175,17 @@ control 'permissions-07' do
 end
 
 control 'permissions-08' do
-  title 'Legacy users'
+  title 'Legacy users passwd file'
   desc 'No Legacy "+" Entries Exist in /etc/passwd File'
   describe passwd do
+    its('users') { should_not include /\+/ }
+  end
+end
+
+control 'permissions-09' do
+  title 'Legacy users shadow file'
+  desc 'No Legacy "+" Entries Exist in /etc/shadow File'
+  describe passwd('/etc/shadow') do
     its('users') { should_not include /\+/ }
   end
 end
