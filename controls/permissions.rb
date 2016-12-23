@@ -189,3 +189,11 @@ control 'permissions-09' do
     its('users') { should_not include /\+/ }
   end
 end
+
+control 'permissions-10' do
+  title 'Legacy groups in group file'
+  desc 'No Legacy "+" Entries Exist in /etc/group File'
+  describe etc_group do
+    its('groups') { should_not include /\+/ }
+  end
+end
