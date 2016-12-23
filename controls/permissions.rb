@@ -197,3 +197,12 @@ control 'permissions-10' do
     its('groups') { should_not include /\+/ }
   end
 end
+
+control 'permissions-11' do
+  title 'UID 0'
+  desc 'Make sure that only one user named root is UID 0'
+  describe passwd.uids(0) do
+    its('users') { should cmp 'root' }
+    its('count') { should eq 1 }
+  end
+end
