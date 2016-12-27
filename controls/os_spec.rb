@@ -20,3 +20,17 @@ control 'os-02' do
   end
 end
 
+control 'os-03' do
+  title 'Login Banner'
+  desc "verify login banner does not contain sensitive information."
+  describe file('/etc/motd') do
+    its('content') { should_not match %r{.*\\[mrsv].*} }
+  end
+  describe file('/etc/issue') do
+    its('content') { should_not match %r{.*\\[mrsv].*} }
+  end
+  describe file('/etc/issue.net') do
+    its('content') { should_not match %r{.*\\[mrsv].*} }
+  end
+end
+
