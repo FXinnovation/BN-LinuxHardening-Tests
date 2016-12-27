@@ -206,3 +206,22 @@ control 'permissions-11' do
     its('count') { should eq 1 }
   end
 end
+
+control 'permissions-12' do
+  title 'GRUB configuration'
+  desc "GRUB configuration should not be readable,writeable,executable by Group or Others."
+  describe file('/boot/grub2/grub.cfg') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    its('group') { should eq 'root' }
+    it { should_not be_executable }
+    it { should be_readable.by('owner') }
+    it { should be_writable.by('owner') }
+    it { should_not be_writable.by('group') }
+    it { should_not be_readable.by('group') }
+    it { should_not be_writable.by('other') }
+    it { should_not be_readable.by('other') }
+  end
+end
+
