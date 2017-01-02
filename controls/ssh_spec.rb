@@ -13,10 +13,10 @@ control 'ssh-01' do
     its('PubkeyAuthentication') { should eq 'yes' }
     its('PasswordAuthentication') { should eq 'no' }
     its('X11Forwarding') { should eq 'no' }
-    its('MaxAuthTries') { should eq 5 }
+    its('MaxAuthTries') { should eq '5' }
     its('Ciphers') { should cmp('aes128-ctr,aes192-ctr,aes256-ctr') }
-    its('ClientAliveInterval') { should eq 900 }
-    its('ClientAliveCountMax') { should eq 0 }
+    its('ClientAliveInterval') { should eq '900' }
+    its('ClientAliveCountMax') { should eq '0' }
     its('UsePAM') { should eq 'yes' }
     its('LogLevel') { should eq 'INFO' }
   end
