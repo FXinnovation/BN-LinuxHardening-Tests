@@ -43,3 +43,11 @@ control 'os-04' do
   end
 end
 
+control 'os-05' do
+  title 'SU reserved to wheel group'
+  desc "only a memeber of the wheel group should be able to use SU."
+  describe file('/etc/pam.d/su') do
+    its('content') { should match(%r{.*\nauth\s+required\s+pam_wheel.so\s+use_uid\s*\n.*}) }
+  end
+end
+
