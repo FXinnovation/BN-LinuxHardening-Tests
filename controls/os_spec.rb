@@ -34,3 +34,11 @@ control 'os-03' do
   end
 end
 
+control 'os-04' do
+  title 'Password Duration'
+  desc "Password should be valid for atleast 1 day"
+  describe login_defs do
+    its('PASS_MIN_DAYS') { should eq '1' }
+  end
+end
+
