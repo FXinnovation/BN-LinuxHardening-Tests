@@ -51,3 +51,11 @@ control 'os-05' do
   end
 end
 
+control 'os-06' do
+  title 'Limit password reuse'
+  desc "Password should not be reused to 4"
+  describe file('/etc/pam.d/system-auth') do
+    its('content') { should match(%r{.*\npassword\s+sufficient\s+pam_unix.so.*remember=4.*\n.*}) }
+  end
+end
+
