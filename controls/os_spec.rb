@@ -59,3 +59,19 @@ control 'os-06' do
   end
 end
 
+control 'os-07' do
+  title 'Password Compliant'
+  desc "Define pam_pwquality to be compliant with the bank requirement"
+  describe file('/etc/pam.d/passwd') do
+    its('content') { should match(%r{.*\npassword\s+required\s+pam_pwquality.so\s+try_first_pass\s+retry=5.*}) }
+  end
+  describe parse_config_file('/etc/security/pwquality.conf') do
+    its('minlen') { should eq '8' }
+    its('dcredit') { should eq '1' }
+    its('ucredit') { should eq '1' }
+    its('ocredit') { should eq '1' }
+    its('lcredit') { should eq '1' }
+    its('minclass') { should eq '4' }
+  end
+end
+
