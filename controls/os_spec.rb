@@ -39,6 +39,7 @@ control 'os-04' do
   desc "Password should be valid for atleast 1 day"
   describe login_defs do
     its('PASS_MIN_DAYS') { should eq '1' }
+    its('PASS_MAX_DAYS') { should eq '90' }
   end
 end
 
