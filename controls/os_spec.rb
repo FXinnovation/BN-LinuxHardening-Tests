@@ -75,3 +75,10 @@ control 'os-07' do
   end
 end
 
+control 'os-08' do
+  title 'Password Algorithm'
+  desc "password algorithm should be sha512"
+  describe command('authconfig --test') do
+    its('stdout') { should match(%r{.*password\shashing\salgorithm\sis\ssha512.*}) }
+  end
+end
