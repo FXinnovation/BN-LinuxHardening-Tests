@@ -82,3 +82,14 @@ control 'os-08' do
     its('stdout') { should match(%r{.*password\shashing\salgorithm\sis\ssha512.*}) }
   end
 end
+
+
+control 'os-09' do
+  impact 1.0
+  title 'Dot in PATH variable'
+  desc 'Do not include the current working directory in PATH variable. This makes it easier for an attacker to gain extensive rigths by executing a Trojan program'
+  describe os_env('PATH') do
+    its('split') { should_not include('') }
+    its('split') { should_not include('.') }
+  end
+end
