@@ -227,8 +227,13 @@ end
 
 control 'permissions-13' do
   title 'Home Directories'
-  desc 'Home directories should be owned by their users.'
+  desc 'Home directories should be owned by their users. proper permissions should be set.'
   describe command("cat /etc/passwd | awk -F: '{ print $1 \" \" $3 \" \" $6 }' | while read user uid dir; do if [ $uid -ge 1000 -a -d \"$dir\" -a $user != \"nfsnobody\" ]; then owner=$(stat -L -c \"%U\" \"$dir\") ; if [ \"$owner\" != \"$user\" ]; then echo \"The home directory ($dir) of user $user is owned by $owner.\" ; fi ; fi ; done") do
     its('stdout') { should eq '' }
+    its('stderr') { should eq '' }
+  end
+  describe command("cat /etc/passwd | awk -F: '{ if ( $3 > 999 && $7 != \"/sbin/nologin\" ) { print $6 } }' | while read dir; do dirperm=$(/bin/ls -ld $dir | /bin/cut -f1 -d\" \") ; if [ $(echo $dirperm | /bin/cut -c6) != \"-\" ]; then echo \"Group Write permission set on directory $dir\" ; fi ; if [ $(echo $dirperm | /bin/cut -c8) != \"-\" ]; then echo \"Other Read permission set on directory $dir\" ; fi ; if [ $(echo $dirperm | /bin/cut -c9) != \"-\" ]; then echo \"Other Write permission set on directory $dir\" ; fi ; if [ $(echo $dirperm | /bin/cut -c10) != \"-\" ]; then echo \"Other Execute permission set on directory $dir\" ; fi ;done") do
+    its('stdout') { should eq '' }
+    its('stderr') { should eq '' }
   end
 end
