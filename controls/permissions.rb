@@ -237,3 +237,13 @@ control 'permissions-13' do
     its('stderr') { should eq '' }
   end
 end
+
+control 'permissions-14' do
+  title 'User Dot Files'
+  desc 'Check User Dot File Permissions'
+  describe command("cat /etc/passwd | awk -F: '{ if ( $3 > 999 && $7 != \"/sbin/nologin\" ) { print $6 } }' | while read dir; do sudo ls -la1 $dir | grep -v ^total | awk -F' ' '{  if ( $9 !~ /\\.$/ ) { print $1 \" \" $9 } }'| while read fileperm file; do if [ ! -h \"$file\" -a -f \"$file\" ]; then if [ $(echo $fileperm | /bin/cut -c6) != \"-\" ]; then echo \"Group Write permission set on file $dir/$file\"; fi ; if [ $(echo $fileperm | /bin/cut -c9) != \"-\" ]; then echo \"Other Write permission set on file $dir/$file\" ; fi; fi; done; done") do
+    its('stdout') { should eq '' }
+    its('stderr') { should eq '' }
+  end
+end
+
