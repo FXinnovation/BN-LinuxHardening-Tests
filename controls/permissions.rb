@@ -247,3 +247,12 @@ control 'permissions-14' do
   end
 end
 
+control 'permissions-15' do
+  title 'User netrc Files'
+  desc 'Check User netrc File Permissions'
+  describe command("cat /etc/passwd | awk -F: '{ if ( $3 > 999 && $7 != \"/sbin/nologin\" ) { print $6 } }' | while read dir; do sudo ls -la1 $dir/.netrc 2> /dev/null | grep -v ^total | awk -F' ' '{ print $1 \" \" $9 }'| while read fileperm file; do if [ $(echo $fileperm | /bin/cut -c5) != \"-\" ] ; then echo \"Group Read set on $dir/$file\"; fi; if [ $(echo $fileperm | /bin/cut -c6) != \"-\" ] ; then echo \"Group Write set on $dir/$file\"; fi; if [ $(echo $fileperm | /bin/cut -c7) != \"-\" ]; then echo \"Group Execute set on $dir/$file\"; fi; if [ $(echo $fileperm | /bin/cut -c8) != \"-\" ]; then echo \"Other Read set on $dir/$file\"; fi; if [ $(echo $fileperm | /bin/cut -c9) != \"-\" ]; then echo \"Other Write set on $dir/$file\"; fi; if [ $(echo $fileperm | /bin/cut -c10) != \"-\" ]; then echo \"Other Execute set on $dir/$file\"; fi; done; done") do
+    its('stdout') { should eq '' }
+    its('stderr') { should eq '' }
+  end
+end
+
