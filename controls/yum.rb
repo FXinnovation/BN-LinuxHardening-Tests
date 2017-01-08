@@ -3,7 +3,7 @@
 
 control 'yum-01' do
   title 'GPG check enabled'
-  desc "gpgcheck parameter should be set to 1 in /etc/yum.conf"
+  desc 'gpgcheck parameter should be set to 1 in /etc/yum.conf'
   describe file('/etc/yum.conf') do
     its('content') { should match(%r{gpgcheck=1}) }
     it { should exist }

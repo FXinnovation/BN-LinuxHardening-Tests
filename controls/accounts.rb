@@ -3,7 +3,7 @@
 
 control 'accounts-01' do
   title 'System Accounts'
-  desc "system accounts should not be able to login"
+  desc 'system accounts should not be able to login'
   describe passwd.shells('/bin/bash') do
     its('uids') { should_not include(/^[1-9][0-9]?[0-9]?$/) }
   end

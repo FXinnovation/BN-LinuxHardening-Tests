@@ -3,7 +3,7 @@
 
 control 'ssh-01' do
   title 'SSHd configuration'
-  desc "sshd configuration should comply with best practices"
+  desc 'sshd configuration should comply with best practices'
   describe sshd_config do
     its('Protocol') { should cmp 2 }
     its('IgnoreRhosts') { should eq 'yes' }

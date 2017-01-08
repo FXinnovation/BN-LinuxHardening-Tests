@@ -41,7 +41,7 @@ class LinuxUpdateManager < Inspec.resource(1)
   end
 
   def to_s
-    "Linux Update"
+    'Linux Update'
   end
 end
 
@@ -121,7 +121,7 @@ EOH
     cmd = @inspec.bash(rhel_updates)
     unless cmd.exit_status == 0
       # essentially we want https://github.com/chef/inspec/issues/1205
-      STDERR.puts "Could not determine patch status."
+      STDERR.puts 'Could not determine patch status.'
       return nil
     end
 
