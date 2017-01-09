@@ -131,3 +131,12 @@ control 'package-15' do
     it { should be_installed }
   end
 end
+
+control 'package-16' do
+  impact 1.0
+  title 'samhain'
+  desc 'samhain should be installed'
+  describe package('samhain') do
+    it { should be_installed }
+  end
+end
