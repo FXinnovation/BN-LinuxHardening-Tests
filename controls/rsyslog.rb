@@ -41,5 +41,6 @@ control 'rsyslog-04' do
     its('content') { should match(%r{daemon\.\*\s\/var\/log\/daemon.log}) }
     its('content') { should match(%r{syslog\.\*\s\/var\/log\/syslog}) }
     its('content') { should match(%r{lpr\,news\,uucp\,local0\,local1\,local2\,local3\,local4\,local5\,local6\.\*\s\/var\/log\/unused.log}) }
+    its('content') { should match(%r{local2\.\*\s+\/var\/log\/local2_samhain.log}) }
   end
 end
