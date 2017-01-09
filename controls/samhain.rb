@@ -10,3 +10,21 @@ control 'samhain-01' do
   end
 end
 
+control 'samhain-02' do
+  title 'samhain configuration'
+  desc 'samhain configuration should be our file.'
+  describe file('/etc/samhainrc') do
+    its('md5sum') { should eq '3209d5b437036b1de871a4a59c348346' }
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    its('group') { should eq 'root' }
+    it { should_not be_executable }
+    it { should be_writable.by('owner') }
+    it { should be_readable.by('owner') }
+    it { should_not be_writable.by('group') }
+    it { should_not be_readable.by('group') }
+    it { should_not be_writable.by('other') }
+    it { should_not be_readable.by('other') }
+  end
+end
