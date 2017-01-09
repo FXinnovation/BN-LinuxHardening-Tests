@@ -258,8 +258,12 @@ end
 
 control 'permissions-16' do
   title 'Un-Owned Files'
-  desc 'find files that are not owned by anyone.'
+  desc 'find files that are not owned by anyone or group.'
   describe command("df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' sudo find '{}' -xdev -nouser -ls") do
+    its('stdout') { should eq '' }
+    its('stderr') { should eq '' }
+  end
+  describe command("df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' sudo find '{}' -xdev -nogroup -ls") do
     its('stdout') { should eq '' }
     its('stderr') { should eq '' }
   end
