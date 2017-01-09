@@ -93,3 +93,11 @@ control 'os-09' do
     its('split') { should_not include('.') }
   end
 end
+
+control 'os-10' do
+  title 'find SUID executables'
+  describe command("df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' sudo find '{}' -xdev -type f -perm -4000 -print") do
+    its('stdout') { should eq '' }
+    its('stderr') { should eq '' }
+  end
+end
