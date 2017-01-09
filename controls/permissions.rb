@@ -256,3 +256,11 @@ control 'permissions-15' do
   end
 end
 
+control 'permissions-16' do
+  title 'Un-Owned Files'
+  desc 'find files that are not owned by anyone.'
+  describe command("df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' sudo find '{}' -xdev -nouser -ls") do
+    its('stdout') { should eq '' }
+    its('stderr') { should eq '' }
+  end
+end
