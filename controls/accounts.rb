@@ -12,3 +12,10 @@ control 'accounts-01' do
   end
 end
 
+control 'accounts-02' do
+  title 'Empty Passwords'
+  desc 'no user should have an empty password.'
+  describe shadow do
+    its('passwords') { should_not contain '' }
+  end
+end
