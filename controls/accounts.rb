@@ -19,3 +19,11 @@ control 'accounts-02' do
     its('passwords') { should_not contain '' }
   end
 end
+
+control 'accounts-03' do
+  title 'Duplicate UIDs'
+  desc 'No Duplicate UIDS should be present'
+  describe passwd do
+    its('uids') { should_not contain_duplicates }
+  end
+end
