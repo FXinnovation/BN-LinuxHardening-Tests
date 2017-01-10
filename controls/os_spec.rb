@@ -124,3 +124,21 @@ control 'os-10' do
     it { should be_empty }
   end
 end
+
+control 'os-11' do
+  title 'find SGID executables'
+  whitelist = ['/usr/bin/wall',
+               '/usr/bin/write',
+               '/usr/bin/ssh-agent',
+               '/usr/sbin/netreport',
+               '/usr/sbin/postdrop',
+               '/usr/sbin/postqueue',
+               '/usr/libexec/utempter/utempter',
+               '/usr/libexec/openssh/ssh-keysign']
+  output = command("df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -2000 -print")
+  diff = output.stdout.split(/\r?\n/) - whitelist
+
+  describe diff do
+    it { should be_empty }
+  end
+end
