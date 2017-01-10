@@ -32,3 +32,10 @@ control 'partitions-04' do
     it { should be_mounted }
   end
 end
+
+control 'partitions-05' do
+  title '/var/log partition'
+  describe mount('/var/log') do
+    it { should be_mounted }
+  end
+end
