@@ -35,3 +35,11 @@ control 'accounts-04' do
     its('gids') { should_not contain_duplicates }
   end
 end
+
+control 'accounts-05' do
+  title 'Duplicate usernames'
+  desc 'No Duplicate username should be present'
+  describe passwd do
+    its('users') { should_not contain_duplicates }
+  end
+end
