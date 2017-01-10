@@ -24,3 +24,10 @@ control 'partitions-03' do
     it { should be_mounted }
   end
 end
+
+control 'partitions-04' do
+  title '/var/tmp partition'
+  describe mount('/var/tmp') do
+    it { should be_mounted }
+  end
+end
