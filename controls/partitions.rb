@@ -7,6 +7,7 @@ control 'partitions-01' do
     it { should be_mounted }
     its('options') { should include 'nodev' }
     its('options') { should include 'nosuid' }
+    its('options') { should include 'noexec' }
   end
 end
 
