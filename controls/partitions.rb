@@ -39,3 +39,10 @@ control 'partitions-05' do
     it { should be_mounted }
   end
 end
+
+control 'partitions-06' do
+  title '/dev/shm partition'
+  describe mount('/dev/shm') do
+    its('options') { should include 'nosuid' }
+  end
+end
