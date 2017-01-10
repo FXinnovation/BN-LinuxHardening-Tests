@@ -7,3 +7,10 @@ control 'partitions-01' do
     it { should be_mounted }
   end
 end
+
+control 'partitions-02' do
+  title 'Home partition'
+  describe mount('/home') do
+    it { should be_mounted }
+  end
+end
