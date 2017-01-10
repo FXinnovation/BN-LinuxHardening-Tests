@@ -51,3 +51,22 @@ control 'accounts-06' do
     its('groups') { should_not contain_duplicates }
   end
 end
+
+control 'accounts-7' do
+  title 'Reserved UIDS'
+  desc 'Check That Reserved UIDs Are Assigned to System Accounts'
+  system_users = [ 'root', 'bin', 'daemon', 'adm', 'lp', 'sync', 'shutdown',
+                   'halt', 'mail', 'news', 'uucp', 'operator', 'games', 'gopher',
+                   'ftp', 'nobody', 'nscd', 'vcsa', 'rpc', 'mailnull', 'smmsp',
+                   'pcap', 'ntp', 'dbus', 'avahi', 'sshd', 'rpcuser', 'nfsnobody',
+                   'haldaemon', 'avahi-autoipd', 'distcache', 'apache', 'oprofile',
+                   'webalizer', 'dovecot', 'squid', 'named', 'xfs', 'gdm', 'sabayon',
+                   'usbmuxd', 'rtkit', 'abrt', 'saslauth', 'pulse postfix', 'tcpdump']
+  found_users = command("/bin/awk -F: '($3 < 1000) { print $1 }' /etc/passwd")
+
+  diff = found_users.stdout.split(/\r?\n/) - system_users
+
+  describe diff do
+    it { should be_empty }
+  end
+end
