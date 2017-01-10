@@ -96,8 +96,31 @@ end
 
 control 'os-10' do
   title 'find SUID executables'
-  describe command("df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' sudo find '{}' -xdev -type f -perm -4000 -print") do
-    its('stdout') { should eq '' }
-    its('stderr') { should eq '' }
+  # SUID executables part of a clean install
+  whitelist = ['/usr/bin/chage',
+               '/usr/bin/chfn',
+               '/usr/bin/chsh',
+               '/usr/bin/gpasswd',
+               '/usr/bin/newgrp',
+               '/usr/bin/mount',
+               '/usr/bin/pkexec',
+               '/usr/bin/crontab',
+               '/usr/bin/su',
+               '/usr/bin/umount',
+               '/usr/bin/sudo',
+               '/usr/bin/passwd',
+               '/usr/bin/staprun',
+               '/usr/sbin/pam_timestamp_check',
+               '/usr/sbin/unix_chkpwd',
+               '/usr/sbin/usernetctl',
+               '/usr/sbin/mount.nfs',
+               '/usr/lib/polkit-1/polkit-agent-helper-1',
+               '/usr/lib64/dbus-1/dbus-daemon-launch-helper']
+  output = command("df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' sudo find '{}' -xdev -type f -perm -4000 -print")
+
+  diff = output.stdout.split(/\r?\n/) - whitelist
+
+  describe diff do
+    it { should be_empty }
   end
 end
