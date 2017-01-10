@@ -70,3 +70,13 @@ control 'accounts-7' do
     it { should be_empty }
   end
 end
+
+control 'accounts-8' do
+  title 'Groups'
+  desc 'Check Groups from /etc/passwd exists in /etc/group'
+  passwd.gids.each do |item|
+    describe etc_group.gids do
+      it { should include item.to_i }
+    end
+  end
+end
