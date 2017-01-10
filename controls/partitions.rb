@@ -45,5 +45,6 @@ control 'partitions-06' do
   describe mount('/dev/shm') do
     its('options') { should include 'nosuid' }
     its('options') { should include 'nodev' }
+    its('options') { should include 'noexec' }
   end
 end
