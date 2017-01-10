@@ -17,3 +17,10 @@ control 'partitions-02' do
     it { should be_mounted }
   end
 end
+
+control 'partitions-03' do
+  title 'var partition'
+  describe mount('/var') do
+    it { should be_mounted }
+  end
+end
