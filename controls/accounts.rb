@@ -27,3 +27,11 @@ control 'accounts-03' do
     its('uids') { should_not contain_duplicates }
   end
 end
+
+control 'accounts-04' do
+  title 'Duplicate GIDs'
+  desc 'No Duplicate GIDS should be present'
+  describe etc_group do
+    its('gids') { should_not contain_duplicates }
+  end
+end
