@@ -142,3 +142,13 @@ control 'os-11' do
     it { should be_empty }
   end
 end
+
+control 'os-12' do
+  title 'root crontab'
+  only_if do
+    file('/var/spool/cron/root').exist?
+  end
+  describe file('/var/spool/cron/root') do
+    it { should be_owned_by 'root' }
+  end
+end
