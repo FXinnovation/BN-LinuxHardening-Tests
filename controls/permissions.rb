@@ -268,3 +268,12 @@ control 'permissions-16' do
     its('stderr') { should eq '' }
   end
 end
+
+control 'permissions-17' do
+  title 'User rhosts Files'
+  desc 'Check for Presence of User .rhosts Files'
+  describe command("cat /etc/passwd | awk -F: '{ if ( $3 > 999 && $7 != \"/sbin/nologin\" ) { print $6 } }' | while read dir; do sudo ls -la1 $dir/.rhosts 2> /dev/null | grep -v ^total | awk -F' ' '{ print $9 }'| while read file; do echo \".rhosts file in $dir\"; done; done") do
+    its('stdout') { should eq '' }
+    its('stderr') { should eq '' }
+  end
+end
