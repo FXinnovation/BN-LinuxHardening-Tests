@@ -15,6 +15,7 @@ control 'partitions-02' do
   title 'Home partition'
   describe mount('/home') do
     it { should be_mounted }
+    its('options') { should include 'nodev' }
   end
 end
 
