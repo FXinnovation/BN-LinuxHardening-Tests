@@ -43,3 +43,11 @@ control 'accounts-05' do
     its('users') { should_not contain_duplicates }
   end
 end
+
+control 'accounts-06' do
+  title 'Duplicate groups'
+  desc 'No Duplicate groups should be present'
+  describe etc_group do
+    its('groups') { should_not contain_duplicates }
+  end
+end
