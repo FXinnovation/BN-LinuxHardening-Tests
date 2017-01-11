@@ -163,3 +163,11 @@ control 'os-13' do
     its('PROMPT') { should eq 'no' }
   end
 end
+
+control 'os-14' do
+  title 'Single User'
+  desc 'Single user should be password protected'
+  describe parse_config_file('/etc/sysconfig/init') do
+    its('SINGLE') { should eq 'sulogin' }
+  end
+end
