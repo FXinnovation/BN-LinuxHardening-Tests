@@ -286,3 +286,12 @@ control 'permissions-18' do
     its('stderr') { should eq '' }
   end
 end
+
+control 'permissions-19' do
+  title 'World Writable Directories'
+  desc 'Checks for world writable directories that does not have the sticky bit set.'
+  describe command("df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d \\( -perm -0002 -a ! -perm -1000 \\) 2>/dev/null") do
+    its('stdout') { should eq '' }
+    its('stderr') { should eq '' }
+  end
+end
