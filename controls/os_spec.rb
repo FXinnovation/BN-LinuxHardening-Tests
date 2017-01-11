@@ -152,3 +152,14 @@ control 'os-12' do
     it { should be_owned_by 'root' }
   end
 end
+
+control 'os-13' do
+  title 'Interactive startup'
+  desc 'interactive startup should be disabled'
+  only_if do
+    parse_config_file('/etc/sysconfig/init').params('PROMPT') != nil
+  end
+  describe parse_config_file('/etc/sysconfig/init') do
+    its('PROMPT') { should eq 'no' }
+  end
+end
