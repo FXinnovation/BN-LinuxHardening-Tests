@@ -122,7 +122,7 @@ control 'audit-11' do
   end
 end
 
-control 'audit-11' do
+control 'audit-12' do
   title 'Audit root'
   desc 'the Audit Configuration should Collect root actions'
   describe auditd_rules do
