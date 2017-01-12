@@ -92,3 +92,15 @@ control 'audit-08' do
     its('lines') { should contain_match(%r{-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access}) }
   end
 end
+
+
+control 'audit-09' do
+  title 'Audit privileged commands'
+  desc 'the Audit Configuration should Collect Use of Privileged Commands'
+  output = command("find / -xdev \\( -perm -4000 -o -perm -2000 \\) -type f")
+  output.stdout.split(/\r?\n/).each do |something|
+    describe auditd_rules do
+      its('lines') { should contain_match(%r{-a always,exit -F path=#{something} -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged}) }
+    end
+  end
+end
