@@ -130,3 +130,11 @@ control 'audit-12' do
     its('lines') { should contain_match(%r{-a exit,always -F arch=B32 -F euid=0 -S execve -k rootaction}) }
   end
 end
+
+control 'audit-13' do
+  title 'Audit Configuration'
+  desc 'Keep All Auditing Information'
+  describe auditd_conf do
+    its('max_log_file_action') { should eq 'keep_logs' }
+  end
+end
