@@ -104,3 +104,12 @@ control 'audit-09' do
     end
   end
 end
+
+control 'audit-08' do
+  title 'Audit mounts'
+  desc 'the Audit Configuration should Collect Successful File System Mountss'
+  describe auditd_rules do
+    its('lines') { should contain_match(%r{-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts}) }
+    its('lines') { should contain_match(%r{-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts}) }
+  end
+end
