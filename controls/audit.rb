@@ -45,3 +45,13 @@ control 'audit-04' do
     its('lines') { should contain_match(%r{-w /etc/security/opasswd -p wa -k identity}) }
   end
 end
+
+control 'audit-05' do
+  title 'Audit session'
+  desc 'the Audit Configuration should Collect Session Initiation Information'
+  describe auditd_rules do
+    its('lines') { should contain_match(%r{-w /var/run/utmp -p wa -k session}) }
+    its('lines') { should contain_match(%r{-w /var/log/wtmp -p wa -k session}) }
+    its('lines') { should contain_match(%r{-w /var/log/btmp -p wa -k session}) }
+  end
+end
