@@ -107,9 +107,17 @@ end
 
 control 'audit-10' do
   title 'Audit mounts'
-  desc 'the Audit Configuration should Collect Successful File System Mountss'
+  desc 'the Audit Configuration should Collect Successful File System Mounts'
   describe auditd_rules do
     its('lines') { should contain_match(%r{-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts}) }
     its('lines') { should contain_match(%r{-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts}) }
+  end
+end
+
+control 'audit-11' do
+  title 'Audit sudo'
+  desc 'the Audit Configuration should Collect System Administrator Actions (sudolog)'
+  describe auditd_rules do
+    its('lines') { should contain_match(%r{-w /var/log/sudo.log -p wa -k actions}) }
   end
 end
