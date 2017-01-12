@@ -121,3 +121,12 @@ control 'audit-11' do
     its('lines') { should contain_match(%r{-w /var/log/sudo.log -p wa -k actions}) }
   end
 end
+
+control 'audit-11' do
+  title 'Audit root'
+  desc 'the Audit Configuration should Collect root actions'
+  describe auditd_rules do
+    its('lines') { should contain_match(%r{-a exit,always -F arch=B64 -F euid=0 -S execve -k rootaction}) }
+    its('lines') { should contain_match(%r{-a exit,always -F arch=B32 -F euid=0 -S execve -k rootaction}) }
+  end
+end
