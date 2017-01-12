@@ -105,7 +105,7 @@ control 'audit-09' do
   end
 end
 
-control 'audit-08' do
+control 'audit-10' do
   title 'Audit mounts'
   desc 'the Audit Configuration should Collect Successful File System Mountss'
   describe auditd_rules do
