@@ -34,3 +34,14 @@ control 'audit-03' do
     its('lines') { should contain_match(%r{-w /etc/sysconfig/network -p wa -k system-locale}) }
   end
 end
+
+control 'audit-04' do
+  title 'Audit user/group'
+  desc 'the Audit Configuration should Record Events That Modify User/Group Information'
+  describe auditd_rules do
+    its('lines') { should contain_match(%r{-w /etc/group -p wa -k identity}) }
+    its('lines') { should contain_match(%r{-w /etc/passwd -p wa -k identity}) }
+    its('lines') { should contain_match(%r{-w /etc/gshadow -p wa -k identity -w /etc/shadow -p wa -k identity}) }
+    its('lines') { should contain_match(%r{-w /etc/security/opasswd -p wa -k identity}) }
+  end
+end
