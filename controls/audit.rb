@@ -154,7 +154,7 @@ control 'audit-14' do
   describe file('/etc/rsyslog.conf') do
     its('content') { should match(%r{:programname,\s+isequal,\s+"audispd"})}
   end
-  describe auditd_conf do
-    its('log_group') { should eq 'syslog' }
-  end
+  # describe auditd_conf do
+  #   its('log_group') { should eq 'syslog' }
+  # end
 end
