@@ -41,7 +41,8 @@ control 'audit-04' do
   describe auditd_rules do
     its('lines') { should contain_match(%r{-w /etc/group -p wa -k identity}) }
     its('lines') { should contain_match(%r{-w /etc/passwd -p wa -k identity}) }
-    its('lines') { should contain_match(%r{-w /etc/gshadow -p wa -k identity -w /etc/shadow -p wa -k identity}) }
+    its('lines') { should contain_match(%r{-w /etc/gshadow -p wa -k identity}) }
+    its('lines') { should contain_match(%r{-w /etc/shadow -p wa -k identity}) }
     its('lines') { should contain_match(%r{-w /etc/security/opasswd -p wa -k identity}) }
   end
 end
