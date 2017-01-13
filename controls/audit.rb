@@ -138,3 +138,22 @@ control 'audit-13' do
     its('max_log_file_action') { should eq 'keep_logs' }
   end
 end
+
+control 'audit-14' do
+  title 'Audit rsyslog'
+  desc 'Collect audit log via rsyslog'
+  describe parse_config_file('/etc/audisp/plugins.d/syslog.conf') do
+    its('active') { should eq 'yes' }
+    its('direction') { should eq 'out' }
+    its('path') { should eq 'builtin_syslog' }
+    its('type') { should eq 'builtin' }
+    its('args') { should eq 'LOG_INFO' }
+    its('format') { should eq 'string' }
+  end
+  describe file('/etc/rsyslog.conf') do
+    its('content') { should match(%r{:programname,\s+isequal,\s+"audispd"})}
+  end
+  describe auditd_conf do
+    its('log_group') { should eq 'syslog' }
+  end
+end
