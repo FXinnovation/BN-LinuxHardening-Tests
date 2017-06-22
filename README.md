@@ -19,3 +19,6 @@ $ inspec exec https://github.com/FXinnovation/BN-LinuxHardening-Tests
 ## License and Author
 
 * Author:: Pascal Clermont <pascal.clermont@fxinnovation.com>
+
+# Tests
+# TODO RIGHT TESTS
